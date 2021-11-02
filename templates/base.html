@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}
+    <title>Cerebralx</title>
+    {% endblock title %}
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% block beforeindexcss %}
+    
+    {% endblock beforeindexcss %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    {% block cssfile %}
+    {% endblock cssfile %}
+</head>
+<body>
+    <aside class="SidebarContainer">
+        <div onclick="Toggle()" class="Icon">
+            <i class="fa fa-times"></i>
+        </div>
+
+        <div class="SidebarWrapper">
+            <ul class="SidebarMenu">
+                <li><a href="{% url 'ecom:all_products' %}" class="SidebarLink">Shop</a></li>
+                {% if user_is_authenticated %}
+                <li><a href="{% url 'account:logout' %}" class="SidebarLink">Sign Out</a></li>
+                <li><a href="#" class="SidebarLink">Hey, {{username}}</a></li>
+                {% else %}
+                <li><a href="{% url 'account:login' %}" class="SidebarLink">Sign In</a></li>
+                <li><a href="{% url 'account:register' %}" class="SidebarLink">Sign Up</a></li>
+                {% endif %}
+            </ul>
+
+            <div class="SideBtnWrap">
+                <a class="SidebarRoute" href="{% url 'ecom:cart' %}">Cart</a>
+            </div>
+        </div>
+    </aside>
+
+
+    <nav class="Nav">
+        <div class="NavbarContainer">
+            <div class="NavLogo">
+                <a href="{% url 'api:index' %}" class="LogoLink">CEREBRALX</a>
+                <div onclick="Toggle()" class="MobileIcon">
+                    <i class="fa fa-bars"></i>
+                </div>
+            </div>
+
+            <ul class="NavMenu">
+                <li class="NavItem">
+                    <a href="{% url 'ecom:all_products' %}" class="NavLinks" id="about">
+                        Shop
+                    </a>
+                </li>
+                <li class="NavItem">
+                    {% if user_is_authenticated %}
+                    <a href="{% url 'account:logout' %}" class="NavLinks" id="services">
+                        Sign Out
+                    </a>
+                    {% else %}
+                    <a href="{% url 'account:login' %}" class="NavLinks" id="services">
+                        Sign In
+                    </a>
+                    {% endif %}
+                </li>
+                <li class="NavItem">
+                    {% if user_is_authenticated %}
+                    <a href="#" class="NavLinks">
+                        Hey, {{username}}
+                    </a>
+                    {% else %}
+                    <a href="{% url 'account:register' %}" class="NavLinks" id="signup">
+                        Sign Up
+                    </a>
+                    {% endif %}
+                </li>
+            </ul>
+
+            <nav class="NavBtn">
+                <a href="{% url 'ecom:cart' %}" class="NavBtnLink">
+                    Cart
+                </a>
+            </nav>
+        </div>
+    </nav>
+
+    {% block content %}
+
+    {% endblock content %}
+
+    <footer class="FooterContainer">
+        <div class="FooterWrap">
+            <div class="FooterLinksContainer">
+                <div class="FooterLinksWrapper">
+                    <div class="FooterLinkItems">
+                        <h1 class="FooterLinkTitle">About Us</h1>
+                        <a href="#" class="FooterLink">Who are we?</a>
+                        <a href="#" class="FooterLink">How it works</a>
+                    </div>
+                </div>
+
+                <div class="FooterLinksWrapper">
+                    <div class="FooterLinkItems">
+                        <h1 class="FooterLinkTitle">Products</h1>
+                        <a href="{% url 'ecom:product_detail' 1 %}" class="FooterLink">Axone</a>
+                        <a href="{% url 'ecom:product_detail' 1 %}" class="FooterLink">No-Code Platform</a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="SocialMedia">
+                <div class="SocialMediaWrap">
+                    <a class="SocialLogo" href="#">
+                        CX
+                    </a>
+
+                    <small class="WebsiteRights">
+                        Cerebralx, Inc © 2020
+                        All rights reserved
+                    </small>
+
+                    <div class="SocialIcons">
+                        <a class="SocialIconsLink" href="https://www.facebook.com/cerebralx.inc/" target="_blank" aria-label="Facebook"><i class="fa fa-facebook-f"></i></a>
+                        <a class="SocialIconsLink" href="https://www.instagram.com/cerebralx_/" target="_blank" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
+                        <a class="SocialIconsLink" href="https://twitter.com/Cerebralx_" target="_blank" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+                        <a class="SocialIconsLink" href="https://www.linkedin.com/company/cerebralx/" target="_blank" aria-label="Linkedin"><i class="fa fa-linkedin"></i></a>
+                        <a class="SocialIconsLink" href="/" target="_blank" aria-label="Youtube"><i class="fa fa-youtube-play"></i></a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/base.js' %}"></script>
+
+    {% block jsfile %}
+    {% endblock jsfile %}
+</body>
+</html>

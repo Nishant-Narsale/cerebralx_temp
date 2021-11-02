@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/hero.css' %}">
+    <link rel="stylesheet" href="{% static 'css/services.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <title>Cerebralx</title>
+</head>
+<body>
+
+    <aside class="SidebarContainer">
+        <div class="Icon" onclick="Toggle()">
+            <i class="fa fa-times"></i>
+        </div>
+
+        <div class="SidebarWrapper">
+            
+            <ul class="SidebarMenu">
+                
+                <li><a href="#InfoContainer1" class="SidebarLink">What do we do?</a></li>
+                <li><a href="#InfoContainer2" class="SidebarLink">XONE</a></li>
+                <li><a href="#ServicesContainer" class="SidebarLink">What you should do with it?</a></li>
+                <li><a href="#InfoContainer4" class="SidebarLink">Learn More</a></li>
+            </ul>
+
+            <div class="SideBtnWrap">
+                <a class="SidebarRoute" href="{% url 'ecom:all_products' %}">Products</a>
+            </div>
+        </div>
+    </aside>
+
+
+    <nav class="Nav">
+        <div class="NavbarContainer">
+            <a href="#" class="NavLogo">
+                <img class="LogoLink" src="{% static 'images/logcx.png' %}" width="50" height="50">
+                CEREBRALX
+                <div onclick="Toggle()" class="MobileIcon">
+                    <i class="fa fa-bars"></i>
+                </div>
+            </a>
+
+            <ul class="NavMenu">
+                <li class="NavItem">
+                    <a href="#InfoContainer1" class="NavLinks" id="about">
+                        What do we do?
+                    </a>
+                </li>
+                <li class="NavItem">
+                    <a href="#InfoContainer2" class="NavLinks" id="discover">
+                        Xone
+                    </a>
+                </li>
+                <li class="NavItem">
+                    <a href="#ServicesContainer" class="NavLinks" id="services">
+                        What you should do with it?
+                    </a>
+                </li>
+                <li class="NavItem">
+                    <a href="#InfoContainer4" class="NavLinks" id="signup">
+                        Learn More
+                    </a>
+                </li>
+            </ul>
+
+            <nav class="NavBtn">
+                <a href="{% url 'ecom:all_products' %}" class="NavBtnLink">
+                    Products
+                </a>
+            </nav>
+        </div>
+    </nav>
+
+    <div class="HeroContainer" id="home">
+        <div class="HeroBg">
+            <video src="{% static 'videos/videox.mp4' %}" class="VideoBg" autoplay loop muted type='video/mp4'></video>
+        </div>
+        <div class="HeroContent">
+    
+            
+            
+        </div>
+        <h2 class="HeroH2">
+            CROSS OVER INTO LINEAGE OF ASSISTIVE WEARABLES
+        </h2>
+        
+    </div>
+
+    <div class="InfoContainer" id="InfoContainer1">
+        <div class="InfoWrapper">
+            <div class="InfoRow" id="InfoRow1">
+                <div class="Column1">
+
+                    <div class="TextWrapper">
+                        <p class="TopLine">
+                            Every thought, feeling, and movement starts in your brain.
+                        </p>
+                        <h1 class="Heading" id="Heading1">
+                            Cerebralx builds thought-powered devices that allows you to communicate and interact with your surroundings.
+                        </h1>
+                        <p class="Subtitle" id="Subtitle1">
+
+                        </p>
+                        <div class="BtnWrap">
+                            <a href="#InfoContainer4" class="Button" id="Button1">
+                                Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="Column2">
+                    <p class="TopLine">
+
+                    </p>
+                    <h1 class="Heading" id="Heading1">
+
+                    </h1>
+                    <p class="Subtitle" id="Subtitle1">
+
+                    </p>
+                    <div class="ImgWrap">
+                        <img src="{% static 'images/svg-8.svg' %}" class="Img" alt="brain">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="InfoContainer" id="InfoContainer2">
+        <div class="InfoWrapper">
+            <div class="InfoRow" id="InfoRow2">
+                <div class="Column1">
+
+                    <div class="TextWrapper">
+                        
+                        <h1 class="Heading" id="Heading2">
+                            Xone comes with a suite of apps to get you started. Explore new Realms with just a thought                        </h1>
+                        <div class="BtnWrap">
+                            <a href="#InfoContainer4" class="Button" id="Button2">
+                                Learn More
+                            </a>
+                        </div>
+                
+                    </div>
+                </div>
+
+                <div class="Column2">
+                    <p class="TopLine">
+                        
+                    </p>
+                    <h1 class="Heading" id="Heading2">
+                        
+                    </h1>
+                    <div class="ImgWrap">
+                        <img src="{% static 'images/xone_dash.svg' %}" class="Img" alt="discover">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="InfoContainer" id="InfoContainer3">
+        <div class="InfoWrapper">
+            <div class="InfoRow" id="InfoRow3">
+                <div class="Column1">
+
+                    <div class="TextWrapper">
+                        <p class="TopLine">
+                            How does this technology works?
+                        </p>
+                        <h1 class="Heading" id="Heading3">
+
+                        </h1>
+                        <p class="Subtitle" id="Subtitle3">
+                            There are a large number of methods for working with the brain. Most non-medical devices on the BCI market are using biofeedback. This method does not allow using neural interfaces extensively, as it has several technical limitations. We followed the road less traveled.
+                        </p>
+                        <div class="BtnWrap">
+                            <a href="#InfoContainer4" class="Button" id="Button3">
+                                Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="Column2">
+                    <p class="TopLine">
+                        
+                    </p>
+                    <h1 class="Heading" id="Heading3">
+                        
+                    </h1>
+                    <p class="Subtitle" id="Subtitle3">
+
+                    </p>
+                    <div class="ImgWrap">
+                        <img src="{% static 'images/interface_cx.svg' %}" class="Img" alt="brain">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ServicesContainer" id="ServicesContainer">
+        <h1 class="ServicesH1">To Whom is this technology for?</h1>
+        
+        <div class="ServicesWrapper">
+            
+            <div class="ServicesCard">
+                <img src="{% static 'images/meditation_cx.svg' %}" class="ServicesIcon" alt="service">
+                <h2 class="ServicesH2">EXPLORE YOUR BRAIN AND BODY</h2>
+                <p class="ServicesP">Control your meditation and focus in fun way<br><br>
+                <b>PROJECTS:COMING SOON</b>
+                </p>
+            </div>
+            <div class="ServicesCard">
+                <img src="{% static 'images/svg-6.svg' %}" class="ServicesIcon" alt="service">
+                <h2 class="ServicesH2">ENTERTAINMENT</h2>
+                <p class="ServicesP">Control your computer with just a thought<br><br>
+                    <b>PROJECTS:COMING SOON</b></p>
+            </div>
+            <div class="ServicesCard">
+                <img src="{% static 'images/cx_healt.svg' %}" class="ServicesIcon" alt="service">
+                <h2 class="ServicesH2">Health & Wellness</h2>
+                <p class="ServicesP">Regulate healthy mental and behavioral patterns<br><br>
+                    <b>PROJECTS:COMING SOON</b></p>
+            </div>
+            <div class="ServicesCard">
+                <img src="{% static 'images/cx_aug.svg' %}" class="ServicesIcon" alt="service">
+                <h2 class="ServicesH2">AR/VR Realms</h2>
+                <p class="ServicesP">Experience new realms with mind control<br><br><br>
+                    <b>PROJECTS:COMING SOON</b></p>
+            </div>
+            
+
+            
+        
+        </div>
+            
+        
+
+    </div>
+
+    <div class="InfoContainer" id="InfoContainer4">
+        <div class="InfoWrapper">
+            <div class="InfoRow" id="InfoRow4">
+                <div class="Column1">
+
+                    <div class="TextWrapper">
+                        <p class="TopLine">
+                            Stay Connected with us
+                        </p>
+                        <h1 class="Heading" id="Heading4">
+                            
+                        </h1>
+                        <p class="Subtitle" id="Subtitle4">
+                            Get access to our exclusive newsletter
+                        </p>
+                        <div class="BtnWrap">
+                            <form action="{% url 'subscribe' %}" method="post">
+                                {% csrf_token %}
+                                <input type="email" name="email" id="EmailField" class="EmailField" placeholder="Enter Email to Subscribe">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="Column2">
+                    <p class="TopLine">
+
+                    </p>
+                    <h1 class="Heading" id="Heading4">
+
+                    </h1>
+                    <p class="Subtitle" id="Subtitle4">
+
+                    </p>
+                    <div class="ImgWrap">
+                        <img src="{% static 'images/svg-4.svg' %}" class="Img" alt="brain">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="FooterContainer">
+        <div class="FooterWrap">
+            <div class="FooterLinksContainer">
+                <div class="FooterLinksContainer">
+
+                    <div class="FooterLinksWrapper">
+                        <div class="FooterLinkItems">
+                            <h1 class="FooterLinkTitle">About Us</h1>
+                            <a href="#" class="FooterLink">Who are we?</a>
+                            <a href="#" class="FooterLink">What We Do</a>
+                            <a href="#" class="FooterLink">Why Choose Us</a>
+                        </div>
+                    </div>
+
+                    <div class="FooterLinksWrapper">
+                        <div class="FooterLinkItems">
+                            <h1 class="FooterLinkTitle">Home Page</h1>
+                            <a href="#" class="FooterLink">A ray of hope</a>
+                            <a href="#" class="FooterLink">How it works</a>
+                            <a href="#" class="FooterLink">Our role in healthcare</a>
+                            <a href="#" class="FooterLink">Who benefits from our solutions?</a>
+                            <a href="#" class="FooterLink">Tap into the world of innovative patient care</a>
+                        </div>
+                    </div>
+
+                    <div class="FooterLinksWrapper">
+                        <div class="FooterLinkItems">
+                            <h1 class="FooterLinkTitle">Products</h1>
+                            <a href="#" class="FooterLink">Xone</a>
+                            <a href="#" class="FooterLink">Frequently Asked Questions</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <section class="SocialMedia">
+                <div class="SocialMediaWrap">
+                    <a class="SocialLogo" href="#">
+                        CX
+                    </a>
+
+                    <small class="WebsiteRights">
+                        Cerebralx Innovation Hub © 2020
+                        All rights reserved
+                    </small>
+
+                    <div class="SocialIcons">
+                        <a class="SocialIconsLink" href="https://www.facebook.com/cerebralx.inc/" target="_blank" aria-label="Facebook"><i class="fa fa-facebook-f"></i></a>
+                        <a class="SocialIconsLink" href="https://www.instagram.com/cerebralx_/" target="_blank" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
+                        <a class="SocialIconsLink" href="https://twitter.com/Cerebralx_" target="_blank" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+                        <a class="SocialIconsLink" href="https://www.linkedin.com/company/cerebralx/" target="_blank" aria-label="Linkedin"><i class="fa fa-linkedin"></i></a>
+                        <!--<a class="SocialIconsLink" href="/" target="_blank" aria-label="Youtube"><i class="fa fa-youtube-play"></i></a>-->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </footer>
+
+
+    <script src="{% static 'js/index.js' %}"></script>
+</body>
+</html>

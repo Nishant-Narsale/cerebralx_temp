@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block cssfile %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock cssfile %}
+
+{% block content %}
+<script>
+    var user = "{{request.user}}"
+    var page = "cart"
+    function getToken(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getToken('csrftoken');
+</script>
+
+<div class="container">
+    <div class="row-1">
+        <a href="{% url 'ecom:all_products' %}"><button class="btn continue-shopping">&#8592; Continue Shopping</button></a>
+    </div>
+    <div class="inner-container">
+        <div class="content">
+
+            {% for order_item in order_items %}
+            <div class="row">
+
+                <img class="product-image" src="{{ order_item.product.get_image_url }}" alt="image">
+                <div class="details">
+                    <p class="product-name">{{ order_item.product.name }}</p>
+                    <div class="product-quantity">
+                        <button data-product="{{ order_item.product.id }}" data-action="remove" class="update-cart">-</button>
+                        <p id="quantity">{{ order_item.quantity }}</p>
+                        <button data-product="{{ order_item.product.id }}" data-action="add" class="update-cart">+</button>
+                    </div>
+                </div>
+                <div class="lower-row-wrapper">
+                    <div class="lower-row">
+                        <p data-product="{{ order_item.product.id }}" data-action="removeItem" class="remove-item update-cart"><i class="fa fa-trash" aria-hidden="true"></i> Remove Item</p>
+                        <p>&#8377; {{ order_item.total_price }}</p>
+                    </div>
+                </div>
+                
+            </div>
+
+            {% if forloop.last %}
+            {% else %}
+            <hr width="90%" style="justify-self: center; height: 0.5px;">
+            {% endif %}
+
+            {% endfor %}
+    
+        </div>
+    
+        <div class="side-content">
+            
+            <p class="side-content-header">The Total Amount</p>
+            <br>
+            <div class="side-content-row">
+                <p>Total Items</p>
+                <p>{{ order.total_cart_items }}</p>
+            </div>
+            <br>
+            
+            <div class="side-content-row">
+                <p>Total Amount</p>
+                <p>&#8377; {{ order.total_cart_price }}</p>
+            </div>
+
+            <div class="side-content-row">
+                <p>Shipping Price</p>
+                <p>&#8377; {{ order.shipping_price }}</p>
+            </div>
+            <hr>
+
+            <div class="side-content-row">
+                <p>Total <sub>(including all)</sub></p>
+                <p>&#8377; {{ order.total_cart_price_with_shipping_price }}</p>
+            </div>
+            <br>
+
+            <div class="side-content-btn">
+                <a href="{% url 'ecom:checkout' %}"><button class="checkout">Checkout &#8594;</button></a>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock content %}
+
+{% block jsfile %}
+<script src="{% static 'js/update-cart.js' %}"></script>
+{% endblock jsfile %}

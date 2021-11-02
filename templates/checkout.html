@@ -1,0 +1,310 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block beforeindexcss %}
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+{% endblock beforeindexcss %}
+
+{% block content %}
+<script>
+    var user = "{{request.user}}"
+    function getToken(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getToken('csrftoken');
+</script>
+
+<div class="container">
+    <div class="wrapper">
+        
+        <div class="row">
+
+            <div class="formWrapper">
+
+                <form id="shippingInfoForm">
+
+                    <div class="col-7 col info-column">
+                        <h3 class="topborder"><span>Billing Details</span></h3>
+    
+                        <label for="country">Country</label>
+                        <select name="country" id="country" required>
+                            <option value="">Please select a country</option>
+                            <option value="Canada">India</option>
+                            <option value="Not Canada">Not India</option>
+                        </select>
+    
+                        <div class="width50 padright">
+                            <label for="fname">First Name</label>
+                            <input type="text" name="fname" id="fname" required>
+                        </div>
+    
+                        <div class="width50">
+                            <label for="lname">Last Name</label>
+                            <input type="text" name="lname" id="lname" required>
+                        </div>
+                        
+                        <label for="address">Address</label>
+                        <input type="text" name="address" id="address" required>
+                        <input type="text" name="address2" id="address2" placeholder="Optional">
+    
+                        <label for="city">Town / City</label>
+                        <input type="text" name="city" id="city" required>
+    
+                        <div class="width50 padright">
+                            <label for="state">State</label>
+                            <select name="state" id="state" required>
+                                <option value="">Please select a state</option>
+                                <option value="ab">Maharashtra</option>
+                                <option value="bc">MadhyaPradesh</option>
+                                <option value="not-canada">Rajasthan</option>
+                            </select>
+                        </div>
+    
+                        <div class="width50">
+                            <label for="postcode">Postcode</label>
+                            <input type="text" name="postcode" id="postcode" placeholder="Postcode / Zip" required>
+                        </div>
+    
+                        <div class="width50 padright">
+                            <label for="email">Email Address</label>
+                            <input type="text" name="email" id="email" required>
+                        </div>
+    
+                        <div class="width50">
+                            <label for="tel">Phone</label>
+                            <input type="text" name="tel" id="tel" required>
+                        </div>
+    
+                    </div>
+    
+    
+    
+                    <div class="col-5 col order">
+                        <h3 class="topborder"><span>Your Order</span></h3>
+    
+                        <div class="inner-container">
+                            <div class="content">
+    
+                                {% for order_item in order_items %}
+                                <div class="row">
+    
+                                    <img class="product-image" src="{{ order_item.product.get_image_url }}" alt="image">
+                                    
+                                    <div class="details">
+                                        <p class="product-name">{{ order_item.product.name }}</p>
+                                    </div>
+    
+                                    <div class="product-quantity">
+                                        <p id="quantity">{{ order_item.quantity }} <sub>(pieces)</sub></p>
+                                    </div>
+    
+                                    <div class="lower-row-wrapper">
+                                        <div class="lower-row">
+                                            <p>&#8377; {{ order_item.total_price }}</p>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+    
+                                {% if forloop.last %}
+                                {% else %}
+                                <hr width="90%" style="justify-self: center; height: 0.5px;">
+                                {% endif %}
+    
+                                {% endfor %}
+                        
+                            </div>
+                        
+                            <div class="next-content">
+                                
+                                <div class="next-content-row">
+                                    <p>Total Items</p>
+                                    <p>{{ order.total_cart_items }}</p>
+                                </div>
+                                <br>
+                                
+                                <div class="next-content-row">
+                                    <p>Total Amount</p>
+                                    <p>&#8377; {{ order.total_cart_price }}</p>
+                                </div>
+    
+                                <div class="next-content-row">
+                                    <p>Shipping Price</p>
+                                    <p>&#8377; {{ order.shipping_price }}</p>
+                                </div>
+                                <hr>
+    
+                                <div class="next-content-row">
+                                    <p>Total <sub>(including all)</sub></p>
+                                    <p>&#8377; {{ order.total_cart_price_with_shipping_price }}</p>
+                                </div>
+                                <br>
+    
+                            </div>
+                        </div>
+                        
+                        <div class="btn-wrapper">
+                            <button id="continueButton" type="submit" name="submit" class="redbutton">Continue</button>
+                        </div>
+    
+                    </div>
+    
+                </form>
+
+                <div class="checkout-options">
+                    <button id="rzp-button1">Pay With Razorpay</button>
+                    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                    <script>
+                        var amt = parseInt("{{ order.total_cart_price_with_shipping_price }}") * 100
+                    var options = {
+                        "key": "rzp_test_rY2iMC7xvq90zA", // Enter the Key ID generated from the Dashboard
+                        "amount": amt, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                        "currency": "INR",
+                        "name": "Cerebralx",
+                        "description": "Test Transaction",
+                        "image": "{% static 'favicon.ico' %}",
+                        "order_id": "{{payment.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                        "handler": function (response){
+                            alert(response.razorpay_payment_id);
+                            alert(response.razorpay_order_id);
+                            alert(response.razorpay_signature)
+
+                            var razorpay_success_url = "/ecom/order_success/{{order.id}}/";
+
+                            fetch (razorpay_success_url,{
+                                method : 'POST',
+                                headers : {
+                                    'content-type' : 'application/json',
+                                    'X-CSRFToken' : csrftoken
+                                },
+                                body : JSON.stringify({
+                                    'razorpay_payment_id': response.razorpay_payment_id,
+                                    'razorpay_order_id': response.razorpay_order_id,
+                                    'razorpay_signature': response.razorpay_signature
+                                })
+                            })
+
+                            .then((response) => {
+                                return response.json()
+                            })
+
+                            .then((data) => {
+                                if(data["response"]=="done"){
+                                    window.location.href= '/ecom/order_success/{{order.id}}'
+                                }
+                            })
+                            
+                        },
+                        "prefill": {
+                            "name": "Gaurav Kumar",
+                            "email": "gaurav.kumar@example.com",
+                            "contact": "9999999999"
+                        },
+                        "notes": {
+                            "address": "Razorpay Corporate Office"
+                        },
+                        "theme": {
+                            "color": "green"
+                        }
+                    };
+                    var rzp1 = new Razorpay(options);
+                    rzp1.on('payment.failed', function (response){
+                            alert(response.error.code);
+                            alert(response.error.description);
+                            alert(response.error.source);
+                            alert(response.error.step);
+                            alert(response.error.reason);
+                            alert(response.error.metadata.order_id);
+                            alert(response.error.metadata.payment_id);
+                    });
+                    document.getElementById('rzp-button1').onclick = function(e){
+                        rzp1.open();
+                        e.preventDefault();
+                    }
+                    </script>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+    var shippingInfoForm = document.getElementById("shippingInfoForm");
+    var checkoutDiv = document.getElementsByClassName("checkout-options")[0]
+    var continueButton = document.getElementById("continueButton")
+    var is_through_buynow = "{{is_through_buynow}}"
+    console.log(is_through_buynow)
+
+    shippingInfoForm.addEventListener("submit", function(event){
+        event.preventDefault()
+        continueButton.style.width = "100px"
+        continueButton.style.display = "flex"
+        continueButton.style.justifyContent = "center"
+        continueButton.style.alignItems = "center"
+        continueButton.innerHTML = '<div class="loader"></div>'
+
+        if(is_through_buynow === "True"){
+            submitUrl = window.location.href
+        }else{
+            submitUrl = "/ecom/checkout/";
+        }
+
+        fetch (submitUrl,{
+            method : 'POST',
+            headers : {
+                'content-type' : 'application/json',
+                'X-CSRFToken' : csrftoken
+            },
+            body : JSON.stringify({
+                'city': event.target.elements.country.value,
+                'firstName': event.target.elements.fname.value,
+                'lastName': event.target.elements.lname.value,
+                'address': event.target.elements.address.value,
+                'optional_address': event.target.elements.address2.value,
+                'city': event.target.elements.city.value,
+                'state': event.target.elements.state.value,
+                'zipcode': event.target.elements.postcode.value,
+                'order_id':'{{order.id}}'
+            })
+        })
+
+        .then((response) => {
+            return response.json()
+        })
+
+        .then((data) => {
+            console.log('data:',data)
+            if(data["Done"]){
+                checkoutDiv.style.display = "flex";
+                continueButton.parentElement.innerHTML = '';
+            }else{
+                alert('something went wrong');
+            }
+        })
+
+    })
+
+</script>
+
+
+{% endblock content %}
+
+{% block jsfile %}
+
+{% endblock jsfile %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block cssfile %}
+<link rel="stylesheet" href="{% static 'css/products.css' %}">
+{% endblock cssfile %}
+
+{% block content %}
+<script>
+    var user = "{{request.user}}"
+    var page = "products_page"
+    function getToken(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getToken('csrftoken');
+</script>
+
+<div class="grid-container">
+
+    {% for product in products %}
+    
+        <div class="grid-item">
+            <a class="product-link" href="{% url 'ecom:product_detail' product.id %}">
+                <img class="product-img" src="{{product.get_image_url}}" alt="">
+            </a>
+            <div class="text-wrapper">
+                <p>{{ product.name }}</p>
+                <div class="wrapper">
+                    <p>Price: {{product.price}} &#8377;</p>
+                    <button data-product="{{product.id}}" data-action="add" class="btn update-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    
+    {% endfor %}
+
+</div>
+
+<script src="{% static 'js/get_order_items.js' %}"></script>
+
+{% endblock content %}
+
+
+{% block jsfile %}
+<script src="{% static 'js/update-cart.js' %}"></script>
+{% endblock jsfile %}

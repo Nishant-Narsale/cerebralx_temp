@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block cssfile %}
+<link rel="stylesheet" href="{% static 'css/product_page.css' %}">
+{% endblock cssfile %}
+
+{% block content %}
+<script>
+    var user = "{{request.user}}"
+    var page = "product_detail"
+    function getToken(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getToken('csrftoken');
+</script>
+
+<main class="container">
+ 
+    <!-- Left Column / Product Image -->
+    <div class="left-column">
+      <img src="{{product.get_image_url}}" alt="not loading">
+    </div>
+   
+   
+    <!-- Right Column -->
+    <div class="right-column">
+   
+        <!-- Product Description -->
+        <div class="product-description">
+            <span>{{product.category}}</span>
+            <h1>{{product.name}}</h1>
+            {% if product.desc %}
+            <p>{{product.desc}}</p>
+            {% endif %}
+        </div>
+   
+        <!-- Product Description -->
+        <div class="product-list">
+            <ul>
+                {% if product.feature_1 %}
+                <li>{{product.feature_1}}</li>
+                {% endif %}
+                {% if product.feature_2 %}
+                <li>{{product.feature_2}}</li>
+                {% endif %}
+                {% if product.feature_3 %}
+                <li>{{product.feature_3}}</li>
+                {% endif %}
+                {% if product.feature_4 %}
+                <li>{{product.feature_4}}</li>
+                {% endif %}
+                {% if product.feature_5 %}
+                <li>{{product.feature_5}}</li>
+                {% endif %}
+            </ul>
+        </div>
+   
+        <!-- Product Pricing -->
+        <div class="product-price">
+            <span>{{product.price}} &#8377;</span>
+            <button class="btn cart-btn update-cart" data-product="{{product.id}}" data-action="add">Add to Cart</button>
+            {% if user_is_authenticated %}
+            <a href="{% url 'ecom:buynow' product.id %}" class="btn buy-now-btn">Buy Now</a>
+            {% else %}
+            <a href="{% url 'account:register' %}" class="btn buy-now-btn">Buy Now</a>
+            {% endif %}
+        </div>
+
+    </div>
+  </main>
+
+<script>
+    //checking for the items whether they are added to cart
+    var buttons = document.getElementsByClassName("update-cart")
+    var OrderItemUrl = "/ecom/all_order_items/";
+
+    fetch (OrderItemUrl,{
+        method : 'GET',
+        headers : {
+            'X-CSRFToken' : csrftoken
+        }
+    })
+
+    .then((response) => {
+        return response.json()
+    })
+
+    .then((data) => {
+        if (data.status == "200 OK"){
+            for (let i of data.order_items_ids){
+                // console.log(i-1)
+                if(buttons[0].dataset.product == i)
+                    buttons[0].innerHTML = "&#10003; Added to Cart";
+                    // buttons[i-1].classList.remove("update-cart");
+            }
+        }
+    })  
+</script>
+
+{% endblock content %}
+
+
+
+
+{% block jsfile %}
+<script src="{% static 'js/update-cart.js' %}"></script>
+{% endblock jsfile %}

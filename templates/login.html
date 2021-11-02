@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form-wrap">
+            <a href="{% url 'api:index' %}" class="icon">CEREBRALX</a>
+            <div class="form-content">
+                <form action="{% url 'account:login' %}" method="POST">
+                    {% csrf_token %}
+                    <h1 class="form-h1">Sign In</h1>
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username">
+                    <label for="">Password</label>
+                    <input type="password" name="password" id="password">
+                    <button type="submit">Continue</button>
+                    <p>Don't have an account? <a href="{% url 'account:register' %}"><span>Click here</span></a></p>
+                    <p><span>Forgot Password</span></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

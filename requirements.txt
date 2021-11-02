@@ -1,0 +1,16 @@
+asgiref==3.4.1
+certifi==2021.10.8
+charset-normalizer==2.0.7
+Django==3.2.8
+django-cors-headers==3.10.0
+djangorestframework==3.12.4
+idna==3.3
+mailchimp-marketing==3.0.70
+python-dateutil==2.8.2
+pytz==2021.3
+requests==2.26.0
+six==1.16.0
+sqlparse==0.4.2
+urllib3==1.26.7
+pillow==6.2.1
+razorpay==1.2.0
