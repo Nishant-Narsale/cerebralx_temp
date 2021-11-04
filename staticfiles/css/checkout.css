@@ -1,0 +1,327 @@
+.Nav{
+    background-color: #000;
+}
+.container{
+    margin: 5vw;
+    margin-top: 120px;
+}
+
+
+/* CSS Reset */
+div, span,
+h3,
+a, address, center,
+fieldset, #shippingInfoForm, label{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+
+#shippingInfoForm
+{
+	width: 100%;
+}
+
+input[type="text"], input[type="password"], select, input[type="email"]
+{
+	border: 1px solid #ddd;
+	background-color: #fff;
+	color: #959595;
+	width: 100%;
+	padding: 10px;
+	font-size: 12px;
+	margin: 7px 0 25px 0;
+}
+
+label
+{
+	font-size: 14px;
+}
+
+select
+{
+	height: 37px;
+}
+
+.order .redbutton
+{
+	background-color: #D6544E;
+	padding: 13px 30px;
+	font-size: 14px;
+	font-weight: 100;
+	margin-top: 25px;
+	padding: 10px 20px;
+	color: #fff; 
+	text-transform: uppercase;
+	border: none;
+	cursor: pointer;
+}
+
+.order .redbutton:hover
+{
+	background-color: #000;
+	border: none;
+}
+
+label::after
+{
+	content: "*";
+	color: red;
+	padding-left: 5px;
+}
+
+/* Grid Styles */
+*
+{
+	box-sizing: border-box;
+}
+
+.wrapper
+{
+	width: 100%;
+	margin: 0 auto;
+	margin-bottom: 100px;
+}
+
+.row:before, .row:after
+{
+	content: " ";
+	display: table;
+}
+
+.row:after
+{
+	clear: both;
+}
+
+.col
+{
+	margin-right: 16px;
+	float: left;
+}
+
+.col:last-child
+{
+	margin-right: 0;
+}
+
+.col-5,.col-7
+{
+	width: 100%;
+} 
+
+
+/* TABLET STARTS HERE */
+
+@media(min-width: 768px)
+{
+	.wrapper
+	{
+		width: 768px;
+	}
+
+	.col-5,.col-7
+	{
+		width: 376px;
+	}
+
+	.col:nth-child(2n+2)
+	{
+		margin-right: 0;
+	}
+
+}
+
+
+/*DESKTOP STARTS HERE*/
+
+@media(min-width: 1136px)
+{
+	.wrapper
+	{
+		width: 1136px;
+	}
+
+	.col-5
+	{
+		width: 464px;
+	}
+
+	.col-7
+	{
+		width: 656px;
+	}
+
+	.col:nth-child(2n+2)
+	{
+		margin-right: 16px;
+	}
+
+	.col:last-child
+	{
+		margin-right: 0;
+	}
+}
+
+
+/* Main CSS Starts Here */
+body
+{
+	color: #2b2b2b;
+}
+
+h3
+{
+	text-transform: uppercase;
+	font-weight: 900;
+	padding: 20px 0;
+	color: #000;
+}
+
+
+h3
+{
+	font-size: 16px;
+}
+
+
+/* Heading Top Border Styles Start Here */
+ h3 
+{
+	position: relative;
+}
+  
+ h3.topborder 
+{
+ margin-top: 0;
+}
+  
+h3.topborder:before 
+{
+   	content: "";
+   	display: block;
+   	border-top: 1px solid #c2c2c2;
+   	width: 100%;
+   	height: 1px;
+   	position: absolute;
+    top: 50%;
+    z-index: 1;
+}
+  
+h3.topborder span {
+    background: #fff;
+    padding: 0 10px 0 0;
+    position: relative;
+    z-index: 5;
+}
+/* Heading Top Border Styles End Here */
+
+.order
+{
+	box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+	padding: 30px;
+	margin-top: 0px;
+}
+.info-column{
+	box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+	padding: 5%;
+}
+
+.width50
+{
+	width: 50%;
+	float: left;
+}
+
+.padright
+{
+	padding-right: 40px;
+}
+
+
+/* Cart css */
+.inner-container{
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 3vw;
+}
+
+.content{
+    display: grid;
+    grid-template-columns: 1fr;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.row{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 13px;
+}
+@media screen and (max-width: 480px) {
+	.row{
+		font-size: 10px;
+		font-stretch: expanded;
+	}
+}
+
+
+.product-image{
+	width: 30%;
+	height: 80%;
+}
+
+.next-content{
+	margin-top: 20px;
+	padding: 2%;
+	font-size: 15px;
+}
+.next-content > div{
+	display: flex;
+	justify-content: space-around;
+	margin: 5%;
+}
+.btn-wrapper{
+	display: flex;
+	justify-content: center;
+}
+.checkout-options{
+	display: none;
+	/* display: flex; */
+	justify-content: center;
+	padding: 10px;
+	margin-top: 300px;
+}
+#rzp-button1{
+	background-color: #D6544E;
+	padding: 13px 30px;
+	font-size: 14px;
+	font-weight: 100;
+	margin-top: 25px;
+	padding: 10px 20px;
+	color: #fff; 
+	text-transform: uppercase;
+	border: none;
+	cursor: pointer;
+}
+#rzp-button1:hover{
+	background-color: #000;
+	border: none;
+}
+.loader {
+	border: 2px solid #f3f3f3; /* Light grey */
+	border-top: 2px solid #3498db; /* Blue */
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+  }
